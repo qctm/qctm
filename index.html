@@ -1,160 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QCTM site</title>
-    <link rel="stylesheet" href="site.css"> <!-- Nếu bạn đặt CSS vào file riêng -->
-
+    <title>Genshin Music player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <div class="navbar">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-    </div>
-    <div class="music-player">
-        <h2>Music Player</h2>
+    <div class="player">
+        <!-- Dashboard -->
+        <div class="dashboard">
+          <!-- Header -->
+            <header>
+                <h4>Now playing:</h4>
+                <h2>ten bai hat</h2>
+            </header>
         
-        <!-- Audio Player -->
-        <audio id="audio" controls>
-            <source src="" type="audio/mp3">
-            Your browser does not support the audio element.
-        </audio>
-    
-        <!-- Controls -->
-        <div class="controls">
-            <button onclick="playAudio()">Play</button>
-            <button onclick="pauseAudio()">Pause</button>
-            <button onclick="stopAudio()">Stop</button>
+            <!-- CD -->
+            <div class="cd">
+                <div class="cd-thumb">
+                </div>
+            </div>
+      
+          <!-- Control -->
+            <div class="control">
+                <div class="btn btn-repeat">
+                    <i class="fas fa-redo"></i>
+                </div>
+                <div class="btn btn-prev">
+                    <i class="fas fa-step-backward"></i>
+                </div>
+                <div class="btn btn-toggle-play">
+                    <i class="fas fa-pause icon-pause"></i>
+                    <i class="fas fa-play icon-play"></i>
+                </div>
+                <div class="btn btn-next">
+                    <i class="fas fa-step-forward"></i>
+                </div>
+                <div class="btn btn-random">
+                    <i class="fas fa-random"></i>
+                </div>
+            </div>
+      
+            <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
+            <audio id="audio" src=""></audio>
         </div>
-    
+      
         <!-- Playlist -->
-        <ul class="playlist" id="playlist">
-            <!-- Dynamic content will be added here -->
-        </ul>
-    </div>
-    
-    <script>
-        // Function to play audio
-        function playAudio() {
-            let audio = document.getElementById('audio');
-            audio.play();
-        }
-    
-        // Function to pause audio
-        function pauseAudio() {
-            let audio = document.getElementById('audio');
-            audio.pause();
-        }
-    
-        // Function to stop audio
-        function stopAudio() {
-            let audio = document.getElementById('audio');
-            audio.pause();
-            audio.currentTime = 0;
-        }
-    
-        // Function to add music to playlist from directory
-        function addMusicFromDirectory() {
-            let playlistElement = document.getElementById('playlist');
-            let directoryPath = 'mp3/'; // Replace with your directory path
-            
-            // Simulate reading files from a directory (not possible in browser for security reasons)
-            let fakeFileNames = [
-                '1.mp3',
-                '2.mp3',
-                '3.mp3'
-                // Add more file names as needed
-            ];
-    
-            fakeFileNames.forEach((fileName) => {
-                let musicUrl = directoryPath + fileName;
-                let li = document.createElement('li');
-                li.innerHTML = `<span>${fileName}</span> <button onclick="playSelected('${musicUrl}')">Play</button>`;
-                playlistElement.appendChild(li);
-            });
-        }
-    
-        // Call function to add music from directory when page loads
-        window.onload = addMusicFromDirectory;
-    
-        // Function to play selected music
-        function playSelected(musicUrl) {
-            let audio = document.getElementById('audio');
-            audio.src = musicUrl;
-            audio.play();
-        }
-    </script>
-    <!-- Content -->
-    <div style="padding: 20px;">
-        <!-- Your page content goes here -->
-        <h1>Welcome to My Website!</h1>
-        <p>This is a sample page with a basic navbar.</p>
-    </div>
-    <div class="slideshow-container">
-        <div class="mySlides fade">
-            <img src="img/GI_4011.jpg" style="width:100%">
-            <div class="text">Caption Text</div>
+        <div class="playlist">
+
         </div>
-    
-        <div class="mySlides fade">
-            <img src="img/GI_4012.jpg" style="width:100%">
-            <div class="text">Another Caption Text</div>
-        </div>
-    
-        <div class="mySlides fade">
-            <img src="img/GI_4013.jpg" style="width:100%">
-            <div class="text">Third Caption Text</div>
-        </div>
-    
-        <!-- Next and previous buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
-    <br>
-    
-    <!-- The dots/bullets -->
-    <div style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
     </div>
 
-
     <script>
-        var slideIndex = 1;
-        showSlides(slideIndex);
-    
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-    
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-    
-        function showSlides(n) {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("dot");
-            if (n > slides.length) {slideIndex = 1}
-            if (n < 1) {slideIndex = slides.length}
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
+        /*
+         1. render songs
+         2. scroll top
+         3. play/ pause/ seek
+         4. cs rotate
+         5. next/ prev
+         6. random
+         7. next/ repeat when ended
+         8. active song
+         9. scroll active song into view
+         10. play song when click
+        */
+        
+        const $ = document.querySelector.bind(document)
+        const $$ = document.querySelectorAll.bind(document)
+        const player = $('.player')
+        const heading= $('header h2')
+        const cdThumb = $('.cd-thumb')
+        const audio = $('#audio')
+        const playBtn = $('.btn-toggle-play')
+        const nextBtn = $('.btn-next')
+        const prevBtn = $('.btn-prev')
+        const progress = $('#progress')
+
+        
+        const app = {
+            currentIndex: 0,
+            isPlaying: false,
+            songs: [
+                {
+                    name: 'Liyue',
+                    singer: 'HOYOMiX',
+                    path: './assets/music/101.Liyue.mp3',
+                    image: './assets/img/liyue.jpg'
+                },
+                {
+                    name: "Moon in One's Cup",
+                    singer: 'HOYOMiX',
+                    path: './assets/music/102.Moon in One_s Cup.mp3',
+                    image: './assets/img/liyue.jpg'
+                },
+            ],
+            render: function(){
+                const htmls = this.songs.map(song => {
+                    return`
+                        <div class="song">
+                            <div class="thumb" 
+                                style="background-image: url('${song.image}');">
+                            </div>
+                            <div class="body">
+                                <h3 class="title">${song.name}</h3>
+                                <p class="author">${song.singer}</p>
+                            </div>
+                            <div class="option">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </div>
+                        </div>
+                    `
+                })
+                $('.playlist').innerHTML = htmls.join('\n')
+            },
+            defineProperties: function(){
+                Object.defineProperty(this, 'currentSong', {
+                    get: function(){
+                        console.log(this.currentIndex)
+                        return this.songs[this.currentIndex]
+                    }
+                })
+            },
+            handleEvents: function(){
+                const _this = this
+
+                // cd quay
+                const cdThumbAnimate = cdThumb.animate([
+                    {
+                        transform: 'rotate(360deg)'
+                    }
+                ],  {
+                    duration: 10000,
+                    iterations: Infinity
+                })
+                cdThumbAnimate.pause()
+                document.onscroll = function(){
+                    const cd = $('.cd')
+                    const cdWidth = cd.offsetWidth
+
+                    document.onscroll = function(){
+                        const scrollTop = window.scrollY || document.documentElement.scrollTop
+                        const newCdWidth = cdWidth - scrollTop
+                        // console.log(newCdWidth)
+                        cd.style.width = newCdWidth > 0 ? newCdWidth+ 'px' : 0
+                        cd.style.opacity = newCdWidth / cdWidth
+                    }
+                }
+
+                // onlick Play button
+                playBtn.onclick = function(){
+                    if(_this.isPlaying ){
+                        _this.isPlaying = false
+                        audio.pause()
+                        cdThumbAnimate.pause()
+                        player.classList.remove('playing')
+                    }else{
+                        _this.isPlaying = true
+                        audio.play()
+                        cdThumbAnimate.play()
+                        player.classList.add('playing')
+                    }
+                }
+
+                // khi tien do bai hat thay doi
+                audio.ontimeupdate = function(){
+                    // console.log(audio.currentTime / audio.duration * 100)
+                    const progressPercent = Math.floor(audio.currentTime / audio.duration * 100)
+                    progress.value = progressPercent
+                }
+                // khi tua
+                progress.onchange = function(e){
+                    // console.log(audio.duration /100 * e.target.value)
+                    seekTime = audio.duration /100 * e.target.value
+                    audio.currentTime = seekTime
+                    console.log(seekTime)
+                }
+
+                //khi next
+                nextBtn.onclick = function(){
+                    _this.nextSong()
+                    audio.play()
+                }
+                //khi prev
+                prevBtn.onclick = function(){
+                    _this.prevSong()
+                    audio.play()
+                }
+            },
+            loadCurrentSong: function(){
+                heading.textContent = this.currentSong.name
+                cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
+                audio.src = this.currentSong.path
+
+                console.log(heading, cdThumb, audio)
+            },
+            nextSong: function(){
+                this.currentIndex++
+                if(this.currentIndex >= this.songs.length){
+                    this.currentIndex = 0
+                }
+                this.loadCurrentSong()
+            },
+            prevSong: function(){
+                this.currentIndex--
+                this.loadCurrentSong()
+            },
+
+
+            start: function () {
+                this.defineProperties()
+                this.handleEvents()
+                this.loadCurrentSong()
+                this.render()
             }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex-1].style.display = "block";
-            dots[slideIndex-1].className += " active";
         }
-    
-        // Automatic slideshow
-        setInterval(function() {
-            plusSlides(1);
-        }, 10000); // Change slide every 4 seconds
+
+        app.start()
     </script>
+
+<!-- <div class="song">
+    <div class="thumb" 
+        style="background-image: url('${song}');">
+    </div>
+    <div class="body">
+        <h3 class="title">Tên bài hát</h3>
+        <p class="author">Ca si</p>
+    </div>
+    <div class="option">
+        <i class="fas fa-ellipsis-h"></i>
+    </div>
+</div> -->
+
 </body>
 </html>
