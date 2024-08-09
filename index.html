@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genshin Music player</title>
+    <title>Genshin Music Favorite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -77,6 +77,7 @@
         const playBtn = $('.btn-toggle-play')
         const nextBtn = $('.btn-next')
         const prevBtn = $('.btn-prev')
+        const randomBtn = $('.btn-random')
         const progress = $('#progress')
 
         
@@ -95,6 +96,30 @@
                     singer: 'HOYOMiX',
                     path: './assets/music/102.Moon in One_s Cup.mp3',
                     image: './assets/img/liyue.jpg'
+                },
+                {
+                    name: "Hoa Đăng Tinh Tụ",
+                    singer: 'HOYOMiX',
+                    path: './assets/music/02.Hoa Đăng Tinh Tụ.mp3',
+                    image: './assets/img/msknh.jpg'
+                },
+                {
+                    name: "Shirasagi Princess",
+                    singer: 'HOYOMiX',
+                    path: './assets/music/11.Shirasagi Princess.mp3',
+                    image: './assets/img/ayaka.png'
+                },
+                {
+                    name: "Blossoms of Summer Night",
+                    singer: 'HOYOMiX',
+                    path: './assets/music/14.Blossoms of Summer Night.mp3',
+                    image: './assets/img/yoi.png'
+                },
+                {
+                    name: "Fontaine",
+                    singer: 'HOYOMiX',
+                    path: './assets/music/101.Fontaine.mp3',
+                    image: './assets/img/f.jpg'
                 },
             ],
             render: function(){
@@ -189,6 +214,9 @@
                     _this.prevSong()
                     audio.play()
                 }
+                //khi random
+                randomBtn.onclick = function(e){
+                }
             },
             loadCurrentSong: function(){
                 heading.textContent = this.currentSong.name
@@ -199,13 +227,16 @@
             },
             nextSong: function(){
                 this.currentIndex++
-                if(this.currentIndex >= this.songs.length){
+                if(this.currentIndex > this.songs.length-1){
                     this.currentIndex = 0
                 }
                 this.loadCurrentSong()
             },
             prevSong: function(){
                 this.currentIndex--
+                if(this.currentIndex < 0){
+                    this.currentIndex = 0
+                }
                 this.loadCurrentSong()
             },
 
